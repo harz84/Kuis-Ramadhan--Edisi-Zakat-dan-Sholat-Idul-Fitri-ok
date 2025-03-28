@@ -9,33 +9,48 @@
     <script src="https://unpkg.com/tone"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
+        /* Added styles for html to ensure full height */
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
          body {
-            font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #1A3C34; margin: 0; padding: 0; width: 100%; overflow-x: hidden; position: relative;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Keep min-height */
+            height: 100%; /* Added height */
+            background-color: #1A3C34;
+            margin: 0; /* Body margin already 0 */
+            padding: 0; /* Body padding already 0 */
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
         }
         #gameArea {
-            background-color: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; max-width: 100%; width: 95%; box-sizing: border-box; position: relative;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 100%;
+            width: 95%;
+            box-sizing: border-box;
+            position: relative;
+            /* Removed explicit height/width settings to let content define size */
         }
         #timerContainer { display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
         #timerIcon { width: 40px; height: 40px; margin-right: 10px; }
         #timer { font-family: 'Acme', sans-serif; font-size: 40px; color: #2E4A47; }
 
         #judulGame {
-            font-family: 'Signika', sans-serif;
-            font-size: 40px;
-            color: #D4AF37; /* Emas */
-            margin-bottom: 15px;
-            font-weight: bold;
-            /* padding-right: 130px; */ /* REMOVED for centering, might overlap animations */
-            /* padding-left: 10px; */  /* REMOVED */
-            box-sizing: border-box;
-            position: relative;
-            /* text-align: center; */ /* Inherited */
+            font-family: 'Signika', sans-serif; font-size: 40px; color: #D4AF37; margin-bottom: 15px; font-weight: bold; box-sizing: border-box; position: relative;
         }
         #judulGame.ramadhan { color: #D4AF37; }
 
-        #petunjuk {
-            font-size: 24px; margin-bottom: 20px; color: #333; line-height: 1.4; /* text-align: center; */ /* Inherited */
-        }
+        #petunjuk { font-size: 24px; margin-bottom: 20px; color: #333; line-height: 1.4; }
 
         #pilihanGanda { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
         #pilihanGanda button {
@@ -51,7 +66,7 @@
         .fireworks, .firework { display: none; }
 
         @media (max-width: 768px) {
-            #judulGame { font-size: 30px; /* padding-right: 80px; */ /* REMOVED */ /* padding-left: 5px; */ /* REMOVED */ }
+            #judulGame { font-size: 30px; }
             #petunjuk { font-size: 18px; }
             #pilihanGanda button { font-size: 15px; padding: 10px 12px; min-width: 100%; max-width: 100%; margin: 6px 0; }
             #hasil { font-size: 20px; }
@@ -60,7 +75,7 @@
         }
 
         @media (max-width: 600px) {
-            #judulGame { font-size: 24px; /* padding-right: 75px; */ /* REMOVED */ /* padding-left: 5px; */ /* REMOVED */ }
+            #judulGame { font-size: 24px; }
              #petunjuk { font-size: 16px; }
             #pilihanGanda button { font-size: 14px; }
             #timer { font-size: 25px; }
@@ -84,6 +99,7 @@
 
         #copyright { position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px; color: #F5E8C7; z-index: 1100; }
 
+        /* Position animations relative to gameArea, but ensure they don't push title */
         #correctAnimation, #wrongAnimation { position: absolute; top: 10px; width: 64px; height: 64px; display: none; z-index: 1050; }
         #correctAnimation { right: 10px; }
         #wrongAnimation { right: 80px; }
@@ -91,11 +107,7 @@
         @media (max-width: 768px) {
             #wrongAnimation { right: 10px; }
             #correctAnimation { right: 10px; }
-            /* #judulGame { padding-right: 80px; } */ /* REMOVED */
         }
-         @media (max-width: 600px) {
-            /* #judulGame { padding-right: 75px; } */ /* REMOVED */
-         }
 
     </style>
 </head>
@@ -118,7 +130,8 @@
         <div class="fireworks"></div>
         <div id="correctAnimation"></div>
         <div id="wrongAnimation"></div>
-        <div id="skor" style="display: none;"> {/* HTML Comment Removed */}
+        {/* Corrected skor div - comment removed */}
+        <div id="skor" style="display: none;">
             Benar: <span id="skorBenar">0</span> / Salah: <span id="skorSalah">0</span>
         </div>
     </div>
@@ -176,7 +189,7 @@
             soalSaatIni = soalTersedia[Math.floor(Math.random() * soalTersedia.length)];
             soalSudahDitampilkan.add(soalSaatIni.deskripsi);
 
-            // Update title to show progress (it might overlap animations now)
+            // Update title (may overlap animations without padding)
             document.getElementById("judulGame").textContent = `Kuis Ramadhan 2 (${nomorSoal}/${totalSoal})`;
             document.getElementById("petunjuk").textContent = soalSaatIni.deskripsi;
 
@@ -223,8 +236,7 @@
             else if (skorAkhir <= 84) { gameOverSoundFile = 'alh.mp3'; komentar = "Mantap....🫶🏻"; warnaSkor = "#FFA500"; }
             else { gameOverSoundFile = 'masy.mp3'; komentar = "Kamu Luar Biasa...👍🏻👍🏻👍🏻"; warnaSkor = "#008000"; }
 
-            // Restore original title when game ends
-            document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)";
+            document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)"; // Restore original title
              document.getElementById("petunjuk").innerHTML = `
                 <span id="skorAkhir" style="color: ${warnaSkor};">Skor Akhir Anda: ${skorAkhir.toFixed(0)}%</span><br>
                 Benar: ${skorBenar}<br>Salah: ${skorSalah}<br><br>${komentar}
@@ -236,7 +248,7 @@
             playSound('gameover', gameOverSoundFile); isGameOverSoundPlayed = true;
 
             const learnMoreButton = document.createElement("button");
-            learnMoreButton.textContent = "Belajar Lagi Yuk"; // Updated text
+            learnMoreButton.textContent = "Belajar Lagi Yuk";
             learnMoreButton.id = "learnMoreButton";
             learnMoreButton.onclick = () => { window.location.href = 'https://drive.google.com/file/d/1hWKJqHEpmtaPVIaIVBsbU_2iFRCKIZS6/view?usp=sharing'; };
             Object.assign(learnMoreButton.style, { fontSize: "18px", padding: "8px 14px", margin: "15px 8px 8px 8px", border: "none", borderRadius: "8px", backgroundColor: "#F5E8C7", color: "#2E4A47", cursor: "pointer", transition: "background-color 0.3s ease" });
@@ -254,7 +266,7 @@
              document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)";
              document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!";
              document.getElementById("petunjuk").style.color = "#333";
-             document.getElementById("skor").style.display = "none"; // Ensure score is hidden before starting
+             document.getElementById("skor").style.display = "none";
              mulaiPermainan();
         });
 
