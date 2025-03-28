@@ -10,38 +10,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
          body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #1A3C34;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-            position: relative;
+            font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #1A3C34; margin: 0; padding: 0; width: 100%; overflow-x: hidden; position: relative;
         }
-
         #gameArea {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Ensures children text is centered by default */
-            max-width: 100%;
-            width: 95%;
-            box-sizing: border-box;
-            position: relative;
+            background-color: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; max-width: 100%; width: 95%; box-sizing: border-box; position: relative;
         }
-
-        #timerContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        #timerContainer { display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
         #timerIcon { width: 40px; height: 40px; margin-right: 10px; }
         #timer { font-family: 'Acme', sans-serif; font-size: 40px; color: #2E4A47; }
 
@@ -51,20 +25,16 @@
             color: #D4AF37; /* Emas */
             margin-bottom: 15px;
             font-weight: bold;
-            padding-right: 130px; /* Space for animations */
-            padding-left: 10px;
+            /* padding-right: 130px; */ /* REMOVED for centering, might overlap animations */
+            /* padding-left: 10px; */  /* REMOVED */
             box-sizing: border-box;
-            position: relative; /* Needed for z-index if required, but padding is main solution */
-            /* text-align: center; */ /* Inherited from #gameArea */
+            position: relative;
+            /* text-align: center; */ /* Inherited */
         }
         #judulGame.ramadhan { color: #D4AF37; }
 
         #petunjuk {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-            line-height: 1.4;
-             /* text-align: center; */ /* Inherited from #gameArea */
+            font-size: 24px; margin-bottom: 20px; color: #333; line-height: 1.4; /* text-align: center; */ /* Inherited */
         }
 
         #pilihanGanda { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
@@ -81,7 +51,7 @@
         .fireworks, .firework { display: none; }
 
         @media (max-width: 768px) {
-            #judulGame { font-size: 30px; padding-right: 80px; padding-left: 5px; }
+            #judulGame { font-size: 30px; /* padding-right: 80px; */ /* REMOVED */ /* padding-left: 5px; */ /* REMOVED */ }
             #petunjuk { font-size: 18px; }
             #pilihanGanda button { font-size: 15px; padding: 10px 12px; min-width: 100%; max-width: 100%; margin: 6px 0; }
             #hasil { font-size: 20px; }
@@ -90,7 +60,7 @@
         }
 
         @media (max-width: 600px) {
-            #judulGame { font-size: 24px; padding-right: 75px; padding-left: 5px; }
+            #judulGame { font-size: 24px; /* padding-right: 75px; */ /* REMOVED */ /* padding-left: 5px; */ /* REMOVED */ }
              #petunjuk { font-size: 16px; }
             #pilihanGanda button { font-size: 14px; }
             #timer { font-size: 25px; }
@@ -100,17 +70,10 @@
         #skorBenar { color: #00FF00; }
         #skorSalah { color: #FF0000; }
 
-        #startButton { /* Style for Start button */
-             font-size: 24px; padding: 12px 20px; margin: 8px; border: none; border-radius: 8px; background-color: #F5E8C7; color: #2E4A47; cursor: pointer; transition: background-color 0.3s ease;
-        }
-         #startButton:hover { background-color: #E8DAB2; }
+        #startButton { font-size: 24px; padding: 12px 20px; margin: 8px; border: none; border-radius: 8px; background-color: #F5E8C7; color: #2E4A47; cursor: pointer; transition: background-color 0.3s ease; }
+        #startButton:hover { background-color: #E8DAB2; }
 
-        /* Style specifically for the "Belajar Lagi Yuk" button */
-        #learnMoreButton {
-            font-size: 18px; /* Reduced font size */
-            padding: 8px 14px; /* Reduced padding */
-            margin: 8px; border: none; border-radius: 8px; background-color: #F5E8C7; color: #2E4A47; cursor: pointer; transition: background-color 0.3s ease;
-        }
+        #learnMoreButton { font-size: 18px; padding: 8px 14px; margin: 8px; border: none; border-radius: 8px; background-color: #F5E8C7; color: #2E4A47; cursor: pointer; transition: background-color 0.3s ease; }
         #learnMoreButton:hover { background-color: #E8DAB2; }
 
         #bismillah { font-size: 20px; color: #333; margin-top: 10px; }
@@ -121,19 +84,17 @@
 
         #copyright { position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px; color: #F5E8C7; z-index: 1100; }
 
-        #correctAnimation, #wrongAnimation {
-            position: absolute; top: 10px; width: 64px; height: 64px; display: none; z-index: 1050;
-        }
-         #correctAnimation { right: 10px; }
-         #wrongAnimation { right: 80px; }
+        #correctAnimation, #wrongAnimation { position: absolute; top: 10px; width: 64px; height: 64px; display: none; z-index: 1050; }
+        #correctAnimation { right: 10px; }
+        #wrongAnimation { right: 80px; }
 
         @media (max-width: 768px) {
             #wrongAnimation { right: 10px; }
             #correctAnimation { right: 10px; }
-            #judulGame { padding-right: 80px; }
+            /* #judulGame { padding-right: 80px; } */ /* REMOVED */
         }
          @media (max-width: 600px) {
-            #judulGame { padding-right: 75px; }
+            /* #judulGame { padding-right: 75px; } */ /* REMOVED */
          }
 
     </style>
@@ -157,13 +118,13 @@
         <div class="fireworks"></div>
         <div id="correctAnimation"></div>
         <div id="wrongAnimation"></div>
-        <div id="skor" style="display: none;"> {/* Score display initially hidden, shown during game */}
+        <div id="skor" style="display: none;"> {/* HTML Comment Removed */}
             Benar: <span id="skorBenar">0</span> / Salah: <span id="skorSalah">0</span>
         </div>
     </div>
     <div id="copyright">© Mas Har</div>
     <script>
-        // --- Question Data (Prefixes Removed) ---
+        // --- Question Data ---
         const dataTebakan = [
              { deskripsi: "Kapan waktu yang paling utama (afdhal) untuk menunaikan Zakat Fithri menurut penjelasan dalam modul?", jawaban: "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.", pilihan: ["Sejak awal bulan Ramadhan hingga akhir.", "Satu atau dua hari sebelum hari raya Idul Fithri.", "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.", "Setelah selesai Shalat Idul Fithri hingga sebelum matahari terbenam."], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
              { deskripsi: "Berdasarkan hadits Ibnu Umar yang dikutip, Zakat Fithri diwajibkan atas setiap muslim. Siapakah yang tidak termasuk dalam kewajiban ini secara langsung (meskipun mungkin ditanggung oleh walinya)?", jawaban: "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).", pilihan: ["Anak kecil yang belum baligh.", "Seorang budak muslim.", "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).", "Orang dewasa yang mampu secara finansial."], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
@@ -181,33 +142,17 @@
              { deskripsi: "Jika Hari Raya Idul Fithri jatuh bertepatan dengan hari Jum'at, bagaimana hukum Shalat Jum'at bagi orang yang sudah melaksanakan Shalat Id?", jawaban: "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.", pilihan: ["Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.", "Tetap wajib melaksanakan Shalat Jum'at.", "Wajib mengganti Shalat Jum'at dengan Shalat Dzuhur.", "Shalat Id sudah menggantikan Shalat Jum'at dan Shalat Dzuhur sekaligus."], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
              { deskripsi: "Apa ucapan selamat (tahniah) yang disunnahkan di hari raya, sebagaimana dicontohkan oleh para sahabat?", jawaban: "\"Taqabbalallahu minna wa minkum.\"", pilihan: ["\"Minal 'aidin wal faizin.\"", "\"Selamat Hari Raya, mohon maaf lahir dan batin.\"", "\"Eid Mubarak, barakallahu fiikum.\"", "\"Taqabbalallahu minna wa minkum.\""], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" }
         ];
-        // --- END: Question Data ---
+        // --- END Question Data ---
 
-        // Global variables
-        let soalSaatIni;
-        let synth = new Tone.Synth().toDestination();
-        let jawabanBenar = false;
-        let skorBenar = 0;
-        let skorSalah = 0;
-        let soalSudahDitampilkan = new Set();
-        let nomorSoal = 0;
-        const totalSoal = 15;
-        let isStartSoundPlayed = false;
-        let timerInterval = null;
-        let timeLeft = 240;
-        let isGameOverSoundPlayed = false;
+        // --- Global Variables (Unchanged) ---
+        let soalSaatIni; let synth = new Tone.Synth().toDestination(); let jawabanBenar = false; let skorBenar = 0; let skorSalah = 0; let soalSudahDitampilkan = new Set(); let nomorSoal = 0; const totalSoal = 15; let isStartSoundPlayed = false; let timerInterval = null; let timeLeft = 240; let isGameOverSoundPlayed = false;
 
-        // --- Functions (playSound, updateTimer, resetPilihan, animations - mostly unchanged) ---
-         function playSound(type, specificAudioFile) { /* ... sound logic ... */
-             let audioFile; if (type === 'success') audioFile = 'success.wav'; else if (type === 'fail') audioFile = 'gameovertwew.wav'; else if (type === 'start' && !isStartSoundPlayed) { audioFile = 'ping.wav'; isStartSoundPlayed = true; } else if (type === 'gameover' && specificAudioFile) audioFile = specificAudioFile; else if (type) audioFile = type; if (audioFile) { const audio = new Audio(audioFile); audio.play().catch(e => console.error("Error playing sound:", e)); } }
-         function updateTimer() { /* ... timer logic ... */
-             let minutes = Math.floor(timeLeft / 60); let seconds = timeLeft % 60; document.getElementById("timer").textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; if (timeLeft <= 0) { clearInterval(timerInterval); timerInterval = null; if (nomorSoal < totalSoal) { skorSalah += (totalSoal - nomorSoal); document.getElementById("skorSalah").textContent = skorSalah; } akhirPermainan(); } else { timeLeft--; } }
-        function resetPilihan() { /* ... reset button styles ... */
-             const pilihanButtons = document.querySelectorAll("#pilihanGanda button"); pilihanButtons.forEach(button => { button.classList.remove("selected", "salah"); button.style.backgroundColor = ""; button.style.animationPlayState = 'paused'; }); }
-        function playCorrectAnimation() { /* ... Lottie logic ... */
-             const ac = document.getElementById('correctAnimation'); ac.style.display = 'block'; ac.innerHTML = ''; try { lottie.loadAnimation({ container: ac, renderer: 'svg', loop: false, autoplay: true, path: 'correctan.json' }); } catch (e) { console.error("Lottie Error(C):", e); ac.style.display = 'none'; } setTimeout(() => { ac.style.display = 'none'; }, 2000); }
-        function playWrongAnimation() { /* ... Lottie logic ... */
-            const aw = document.getElementById('wrongAnimation'); aw.style.display = 'block'; aw.innerHTML = ''; try { lottie.loadAnimation({ container: aw, renderer: 'svg', loop: false, autoplay: true, path: 'wrong.json' }); } catch (e) { console.error("Lottie Error(W):", e); aw.style.display = 'none'; } setTimeout(() => { aw.style.display = 'none'; }, 2000); }
+        // --- Functions (playSound, updateTimer, resetPilihan, animations - unchanged) ---
+        function playSound(type, specificAudioFile) { let audioFile; if (type === 'success') audioFile = 'success.wav'; else if (type === 'fail') audioFile = 'gameovertwew.wav'; else if (type === 'start' && !isStartSoundPlayed) { audioFile = 'ping.wav'; isStartSoundPlayed = true; } else if (type === 'gameover' && specificAudioFile) audioFile = specificAudioFile; else if (type) audioFile = type; if (audioFile) { const audio = new Audio(audioFile); audio.play().catch(e => console.error("Error playing sound:", e)); } }
+        function updateTimer() { let minutes = Math.floor(timeLeft / 60); let seconds = timeLeft % 60; document.getElementById("timer").textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; if (timeLeft <= 0) { clearInterval(timerInterval); timerInterval = null; if (nomorSoal < totalSoal) { skorSalah += (totalSoal - nomorSoal); document.getElementById("skorSalah").textContent = skorSalah; } akhirPermainan(); } else { timeLeft--; } }
+        function resetPilihan() { const pilihanButtons = document.querySelectorAll("#pilihanGanda button"); pilihanButtons.forEach(button => { button.classList.remove("selected", "salah"); button.style.backgroundColor = ""; button.style.animationPlayState = 'paused'; }); }
+        function playCorrectAnimation() { const ac = document.getElementById('correctAnimation'); ac.style.display = 'block'; ac.innerHTML = ''; try { lottie.loadAnimation({ container: ac, renderer: 'svg', loop: false, autoplay: true, path: 'correctan.json' }); } catch (e) { console.error("Lottie Error(C):", e); ac.style.display = 'none'; } setTimeout(() => { ac.style.display = 'none'; }, 2000); }
+        function playWrongAnimation() { const aw = document.getElementById('wrongAnimation'); aw.style.display = 'block'; aw.innerHTML = ''; try { lottie.loadAnimation({ container: aw, renderer: 'svg', loop: false, autoplay: true, path: 'wrong.json' }); } catch (e) { console.error("Lottie Error(W):", e); aw.style.display = 'none'; } setTimeout(() => { aw.style.display = 'none'; }, 2000); }
         // --- End Unchanged Functions ---
 
         // Function to start the game
@@ -215,30 +160,23 @@
             document.getElementById("startScreen").style.display = "none";
             document.getElementById("timerContainer").style.display = "flex";
             document.getElementById("pilihanGanda").style.display = "flex";
-            document.getElementById("skor").style.display = "block"; // Show score during game
+            document.getElementById("skor").style.display = "block"; // Show score
 
             playSound('start');
 
-            if (!timerInterval && timeLeft > 0) {
-                updateTimer();
-                timerInterval = setInterval(updateTimer, 1000);
-            } else if (!timerInterval && timeLeft <= 0) {
-                akhirPermainan(); return;
-            }
+            if (!timerInterval && timeLeft > 0) { updateTimer(); timerInterval = setInterval(updateTimer, 1000); }
+            else if (!timerInterval && timeLeft <= 0) { akhirPermainan(); return; }
 
             jawabanBenar = false;
             let soalTersedia = dataTebakan.filter(soal => !soalSudahDitampilkan.has(soal.deskripsi));
 
-            if (soalTersedia.length === 0 || nomorSoal >= totalSoal) {
-                if(timerInterval) clearInterval(timerInterval);
-                timerInterval = null;
-                akhirPermainan(); return;
-            }
+            if (soalTersedia.length === 0 || nomorSoal >= totalSoal) { if(timerInterval) clearInterval(timerInterval); timerInterval = null; akhirPermainan(); return; }
 
             nomorSoal++;
             soalSaatIni = soalTersedia[Math.floor(Math.random() * soalTersedia.length)];
             soalSudahDitampilkan.add(soalSaatIni.deskripsi);
 
+            // Update title to show progress (it might overlap animations now)
             document.getElementById("judulGame").textContent = `Kuis Ramadhan 2 (${nomorSoal}/${totalSoal})`;
             document.getElementById("petunjuk").textContent = soalSaatIni.deskripsi;
 
@@ -247,46 +185,29 @@
             const shuffledPilihan = [...soalSaatIni.pilihan].sort(() => Math.random() - 0.5);
 
             shuffledPilihan.forEach(pilihanText => {
-                const button = document.createElement("button");
-                button.textContent = pilihanText;
-                button.onclick = function() {
-                    if (!jawabanBenar && timeLeft > 0 && timerInterval) {
-                        cekJawaban(pilihanText, button);
-                    }
-                };
+                const button = document.createElement("button"); button.textContent = pilihanText;
+                button.onclick = function() { if (!jawabanBenar && timeLeft > 0 && timerInterval) { cekJawaban(pilihanText, button); } };
                 pilihanContainer.appendChild(button);
             });
 
-            document.getElementById("hasil").textContent = "";
-            resetPilihan();
-            document.getElementById("skorBenar").textContent = skorBenar;
-            document.getElementById("skorSalah").textContent = skorSalah;
+            document.getElementById("hasil").textContent = ""; resetPilihan();
+            document.getElementById("skorBenar").textContent = skorBenar; document.getElementById("skorSalah").textContent = skorSalah;
         }
 
         // Function to check the answer
         function cekJawaban(jawabanYangDipilih, buttonElement) {
-            const pilihanButtons = document.querySelectorAll("#pilihanGanda button");
-            pilihanButtons.forEach(btn => btn.onclick = null);
+            const pilihanButtons = document.querySelectorAll("#pilihanGanda button"); pilihanButtons.forEach(btn => btn.onclick = null);
+            const normDipilih = jawabanYangDipilih.replace(/["“”]/g, '"'); const normBenar = soalSaatIni.jawaban.replace(/["“”]/g, '"');
 
-            const normalizedJawabanDipilih = jawabanYangDipilih.replace(/["“”]/g, '"');
-            const normalizedJawabanBenar = soalSaatIni.jawaban.replace(/["“”]/g, '"');
-
-            if (normalizedJawabanDipilih === normalizedJawabanBenar) {
+            if (normDipilih === normBenar) {
                 document.getElementById("hasil").textContent = "Benar!"; playCorrectAnimation(); playSound('success'); jawabanBenar = true; skorBenar++;
                 document.getElementById("skorBenar").textContent = skorBenar; buttonElement.style.backgroundColor = "#90EE90";
-                setTimeout(() => {
-                    if (nomorSoal < totalSoal && timeLeft > 0) { mulaiPermainan(); }
-                    else { if(timerInterval) clearInterval(timerInterval); timerInterval = null; akhirPermainan(); }
-                }, 1500);
+                setTimeout(() => { if (nomorSoal < totalSoal && timeLeft > 0) { mulaiPermainan(); } else { if(timerInterval) clearInterval(timerInterval); timerInterval = null; akhirPermainan(); } }, 1500);
             } else {
                 document.getElementById("hasil").textContent = "Salah!"; playWrongAnimation(); playSound('fail'); buttonElement.classList.add("salah"); buttonElement.style.animationPlayState = 'running'; skorSalah++;
                 document.getElementById("skorSalah").textContent = skorSalah;
-                 pilihanButtons.forEach(btn => { const normBtn = btn.textContent.replace(/["“”]/g, '"'); if (normBtn === normalizedJawabanBenar) { btn.style.backgroundColor = "#90EE90"; } });
-                setTimeout(() => {
-                    buttonElement.style.animationPlayState = 'paused';
-                    if (nomorSoal < totalSoal && timeLeft > 0) { mulaiPermainan(); }
-                    else { if(timerInterval) clearInterval(timerInterval); timerInterval = null; akhirPermainan(); }
-                }, 2000);
+                 pilihanButtons.forEach(btn => { const normBtn = btn.textContent.replace(/["“”]/g, '"'); if (normBtn === normBenar) { btn.style.backgroundColor = "#90EE90"; } });
+                setTimeout(() => { buttonElement.style.animationPlayState = 'paused'; if (nomorSoal < totalSoal && timeLeft > 0) { mulaiPermainan(); } else { if(timerInterval) clearInterval(timerInterval); timerInterval = null; akhirPermainan(); } }, 2000);
             }
         }
 
@@ -302,32 +223,23 @@
             else if (skorAkhir <= 84) { gameOverSoundFile = 'alh.mp3'; komentar = "Mantap....🫶🏻"; warnaSkor = "#FFA500"; }
             else { gameOverSoundFile = 'masy.mp3'; komentar = "Kamu Luar Biasa...👍🏻👍🏻👍🏻"; warnaSkor = "#008000"; }
 
-            document.getElementById("judulGame").textContent = "Permainan Selesai!";
+            // Restore original title when game ends
+            document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)";
              document.getElementById("petunjuk").innerHTML = `
                 <span id="skorAkhir" style="color: ${warnaSkor};">Skor Akhir Anda: ${skorAkhir.toFixed(0)}%</span><br>
                 Benar: ${skorBenar}<br>Salah: ${skorSalah}<br><br>${komentar}
             `;
-            document.getElementById("pilihanGanda").innerHTML = "";
-            document.getElementById("pilihanGanda").style.display = "none";
-            document.getElementById("hasil").textContent = "";
-            document.getElementById("timerContainer").style.display = "none";
+            document.getElementById("pilihanGanda").innerHTML = ""; document.getElementById("pilihanGanda").style.display = "none";
+            document.getElementById("hasil").textContent = ""; document.getElementById("timerContainer").style.display = "none";
             document.getElementById("skor").style.display = "none"; // Hide score display
 
-            playSound('gameover', gameOverSoundFile);
-            isGameOverSoundPlayed = true;
+            playSound('gameover', gameOverSoundFile); isGameOverSoundPlayed = true;
 
-            // Create and style the "Belajar Lagi Yuk" button
             const learnMoreButton = document.createElement("button");
             learnMoreButton.textContent = "Belajar Lagi Yuk"; // Updated text
             learnMoreButton.id = "learnMoreButton";
             learnMoreButton.onclick = () => { window.location.href = 'https://drive.google.com/file/d/1hWKJqHEpmtaPVIaIVBsbU_2iFRCKIZS6/view?usp=sharing'; };
-            // Apply reduced styles directly (overrides CSS if specific enough)
-            Object.assign(learnMoreButton.style, {
-                fontSize: "18px", /* Reduced font size */
-                padding: "8px 14px", /* Reduced padding */
-                margin: "15px 8px 8px 8px", /* Added top margin */
-                border: "none", borderRadius: "8px", backgroundColor: "#F5E8C7", color: "#2E4A47", cursor: "pointer", transition: "background-color 0.3s ease"
-            });
+            Object.assign(learnMoreButton.style, { fontSize: "18px", padding: "8px 14px", margin: "15px 8px 8px 8px", border: "none", borderRadius: "8px", backgroundColor: "#F5E8C7", color: "#2E4A47", cursor: "pointer", transition: "background-color 0.3s ease" });
             learnMoreButton.onmouseover = () => learnMoreButton.style.backgroundColor = "#E8DAB2";
             learnMoreButton.onmouseout = () => learnMoreButton.style.backgroundColor = "#F5E8C7";
             document.getElementById("gameArea").appendChild(learnMoreButton);
@@ -338,13 +250,11 @@
              skorBenar = 0; skorSalah = 0; nomorSoal = 0; soalSudahDitampilkan.clear(); isGameOverSoundPlayed = false; isStartSoundPlayed = false; timeLeft = 240;
              if(timerInterval) clearInterval(timerInterval); timerInterval = null;
              document.getElementById("skorBenar").textContent = "0"; document.getElementById("skorSalah").textContent = "0";
-             const oldLearnButton = document.getElementById("learnMoreButton");
-             if (oldLearnButton) oldLearnButton.remove();
+             const oldLearnButton = document.getElementById("learnMoreButton"); if (oldLearnButton) oldLearnButton.remove();
              document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)";
              document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!";
              document.getElementById("petunjuk").style.color = "#333";
-             // Ensure score display is hidden initially, will be shown by mulaiPermainan
-             document.getElementById("skor").style.display = "none";
+             document.getElementById("skor").style.display = "none"; // Ensure score is hidden before starting
              mulaiPermainan();
         });
 
