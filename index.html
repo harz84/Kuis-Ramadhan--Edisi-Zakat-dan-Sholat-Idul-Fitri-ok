@@ -15,7 +15,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #1A3C34; /* Hijau Tua */
+            background-color: #1A3C34;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -28,7 +28,7 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Ensures children are centered by default */
+            text-align: center;
             max-width: 100%;
             width: 95%;
             box-sizing: border-box;
@@ -51,33 +51,32 @@
         #timer {
             font-family: 'Acme', sans-serif;
             font-size: 40px;
-            color: #2E4A47; /* Hijau Gelap */
+            color: #2E4A47;
         }
 
         #judulGame {
             font-family: 'Signika', sans-serif;
             font-size: 40px;
-            color: #D4AF37; /* Emas */
+            color: #D4AF37;
             margin-bottom: 15px;
             font-weight: bold;
-            /* text-align: center; */ /* Already centered by #gameArea */
+            padding-right: 130px; /* Add padding to avoid overlap with animations */
+            padding-left: 10px; /* Optional: balance padding */
+            box-sizing: border-box;
         }
-        #judulGame.ramadhan {
-            color: #D4AF37;
-        }
+        #judulGame.ramadhan { color: #D4AF37; }
 
         #petunjuk {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
-            /* text-align: left; */ /* REMOVED this line to allow centering */
-            line-height: 1.4; /* Keep line height for readability */
+            line-height: 1.4;
         }
 
         #pilihanGanda {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Center the buttons container */
+            justify-content: center;
             margin-bottom: 20px;
         }
 
@@ -92,43 +91,34 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             flex: 1 1 100%;
-            max-width: calc(50% - 16px); /* Two buttons per row on larger screens, adjust if needed */
+            max-width: calc(50% - 16px);
             min-width: 150px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
             display: flex;
             align-items: center;
-            text-align: left; /* Keep options left-aligned inside buttons */
+            text-align: left;
             line-height: 1.4;
         }
-
 
         #pilihanGanda button:hover { background-color: #E8DAB2; }
         #pilihanGanda button.selected { background-color: #f0ad4e; }
         #pilihanGanda button.salah { background-color: #FF0000; animation: shake 0.5s; }
 
-        @keyframes shake {
-            0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); }
-        }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
 
-        #hasil {
-            font-size: 24px;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-
+        #hasil { font-size: 24px; margin-top: 20px; font-weight: bold; color: #333; }
         .fireworks, .firework { display: none; }
 
         @media (max-width: 768px) {
-            #judulGame { font-size: 30px; }
+            #judulGame {
+                font-size: 30px;
+                padding-right: 80px; /* Adjust padding for smaller screens */
+                padding-left: 5px;
+            }
             #petunjuk { font-size: 18px; }
             #pilihanGanda button {
-                font-size: 15px;
-                padding: 10px 12px;
-                min-width: 100%;
-                max-width: 100%;
-                margin: 6px 0;
+                font-size: 15px; padding: 10px 12px; min-width: 100%; max-width: 100%; margin: 6px 0;
             }
             #hasil { font-size: 20px; }
             #timer { font-size: 30px; }
@@ -136,15 +126,17 @@
         }
 
         @media (max-width: 600px) {
-            #judulGame { font-size: 26px; }
+            #judulGame {
+                 font-size: 24px; /* Further reduce size */
+                 padding-right: 80px; /* Keep enough space for smaller animations */
+                 padding-left: 5px;
+            }
              #petunjuk { font-size: 16px; }
             #pilihanGanda button { font-size: 14px; }
             #timer { font-size: 25px; }
             #timerIcon { width: 25px; height: 25px; }
         }
-        #skor {
-            position: absolute; bottom: 10px; right: 10px; font-size: 18px; font-weight: bold; color: #333;
-        }
+        #skor { position: absolute; bottom: 10px; right: 10px; font-size: 18px; font-weight: bold; color: #333; }
         #skorBenar { color: #00FF00; }
         #skorSalah { color: #FF0000; }
 
@@ -159,13 +151,29 @@
         @keyframes popup { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         .popup-animation { animation: popup 0.5s ease-in-out forwards; }
 
-        #copyright { position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px; color: #F5E8C7; }
+        #copyright { position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px; color: #F5E8C7; z-index: 1100; /* Ensure copyright is above animations */ }
 
-        #correctAnimation, #wrongAnimation { position: absolute; top: 10px; width: 80px; height: 80px; display: none; }
-        #correctAnimation { right: 10px; }
-        #wrongAnimation { right: 100px; }
+        #correctAnimation, #wrongAnimation {
+            position: absolute;
+            top: 10px;
+            width: 64px; /* UPDATED: 80% of 80px */
+            height: 64px; /* UPDATED: 80% of 80px */
+            display: none;
+            z-index: 1050; /* Ensure animations are above most content but below copyright if needed */
+        }
+         #correctAnimation { right: 10px; }
+         #wrongAnimation { right: 80px; /* Adjusted position slightly for smaller size */ }
 
-        @media (max-width: 768px) { #wrongAnimation { right: 10px; } }
+        @media (max-width: 768px) {
+            #wrongAnimation { right: 10px; } /* Stack on smaller screens */
+            #correctAnimation { right: 10px; } /* Stack on smaller screens */
+             /* Ensure title doesn't overlap stacked icons */
+            #judulGame { padding-right: 80px; }
+        }
+         @media (max-width: 600px) {
+            #judulGame { padding-right: 75px; } /* Adjust for smaller icons */
+         }
+
     </style>
 </head>
 <body>
@@ -181,7 +189,7 @@
             <p id="bismillah">Bismillah</p>
         </div>
         <div id="pilihanGanda" style="display: none;">
-            <!-- Buttons will be generated by JavaScript -->
+            <!-- Buttons generated by JS -->
         </div>
         <p id="hasil"></p>
         <div class="fireworks"></div>
@@ -193,184 +201,184 @@
     </div>
     <div id="copyright">© Mas Har</div>
     <script>
-        // --- START: Question Data (Numbers Removed) ---
+        // --- START: Question Data (Prefixes Removed) ---
         const dataTebakan = [
             {
                 deskripsi: "Kapan waktu yang paling utama (afdhal) untuk menunaikan Zakat Fithri menurut penjelasan dalam modul?",
-                jawaban: "c. Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.",
+                jawaban: "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.", // Prefix removed
                 pilihan: [
-                    "a. Sejak awal bulan Ramadhan hingga akhir.",
-                    "b. Satu atau dua hari sebelum hari raya Idul Fithri.",
-                    "c. Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.",
-                    "d. Setelah selesai Shalat Idul Fithri hingga sebelum matahari terbenam."
+                    "Sejak awal bulan Ramadhan hingga akhir.", // Prefix removed
+                    "Satu atau dua hari sebelum hari raya Idul Fithri.", // Prefix removed
+                    "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id.", // Prefix removed
+                    "Setelah selesai Shalat Idul Fithri hingga sebelum matahari terbenam." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Berdasarkan hadits Ibnu Umar yang dikutip, Zakat Fithri diwajibkan atas setiap muslim. Siapakah yang tidak termasuk dalam kewajiban ini secara langsung (meskipun mungkin ditanggung oleh walinya)?",
-                jawaban: "c. Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).",
+                jawaban: "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).", // Prefix removed
                 pilihan: [
-                    "a. Anak kecil yang belum baligh.",
-                    "b. Seorang budak muslim.",
-                    "c. Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).",
-                    "d. Orang dewasa yang mampu secara finansial."
+                    "Anak kecil yang belum baligh.", // Prefix removed
+                    "Seorang budak muslim.", // Prefix removed
+                    "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama).", // Prefix removed
+                    "Orang dewasa yang mampu secara finansial." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa ukuran standar Zakat Fithri yang harus dikeluarkan untuk setiap jiwa menurut hadits yang disebutkan?",
-                jawaban: "b. Satu sha' dari makanan pokok setempat.",
+                jawaban: "Satu sha' dari makanan pokok setempat.", // Prefix removed
                 pilihan: [
-                    "a. 2.5 kilogram beras atau gandum.",
-                    "b. Satu sha' dari makanan pokok setempat.",
-                    "c. Sejumlah uang yang setara dengan harga 3 kg kurma.",
-                    "d. Empat genggam tangan orang dewasa (mud) gandum saja."
+                    "2.5 kilogram beras atau gandum.", // Prefix removed
+                    "Satu sha' dari makanan pokok setempat.", // Prefix removed
+                    "Sejumlah uang yang setara dengan harga 3 kg kurma.", // Prefix removed
+                    "Empat genggam tangan orang dewasa (mud) gandum saja." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Menurut pendapat mayoritas ulama yang dikuatkan dalam modul, bagaimana hukum mengeluarkan Zakat Fithri setelah selesai melaksanakan Shalat Idul Fithri?",
-                jawaban: "d. Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur.",
+                jawaban: "Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur.", // Prefix removed
                 pilihan: [
-                    "a. Masih dianggap Zakat Fithri yang sah jika ada udzur.",
-                    "b. Dianggap sah namun makruh.",
-                    "c. Boleh dilakukan jika terlupa.",
-                    "d. Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur."
+                    "Masih dianggap Zakat Fithri yang sah jika ada udzur.", // Prefix removed
+                    "Dianggap sah namun makruh.", // Prefix removed
+                    "Boleh dilakukan jika terlupa.", // Prefix removed
+                    "Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Sesuai sunnah yang dipaparkan, apa yang sebaiknya dilakukan sebelum berangkat untuk Shalat Idul Fithri?",
-                jawaban: "b. Memakan beberapa butir kurma dalam jumlah ganjil.",
+                jawaban: "Memakan beberapa butir kurma dalam jumlah ganjil.", // Prefix removed
                 pilihan: [
-                    "a. Berpuasa hingga selesai shalat.",
-                    "b. Memakan beberapa butir kurma dalam jumlah ganjil.",
-                    "c. Tidak makan apapun hingga pulang dari shalat.",
-                    "d. Memperbanyak tidur agar fit saat shalat."
+                    "Berpuasa hingga selesai shalat.", // Prefix removed
+                    "Memakan beberapa butir kurma dalam jumlah ganjil.", // Prefix removed
+                    "Tidak makan apapun hingga pulang dari shalat.", // Prefix removed
+                    "Memperbanyak tidur agar fit saat shalat." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa hukum asal pelaksanaan Shalat Idul Fithri menurut pendapat yang lebih kuat berdasarkan dalil yang disebutkan (seperti hadits Ummu Athiyyah)?",
-                jawaban: "a. Fardhu 'Ain (wajib bagi setiap individu muslim).",
+                jawaban: "Fardhu 'Ain (wajib bagi setiap individu muslim).", // Prefix removed
                 pilihan: [
-                    "a. Fardhu 'Ain (wajib bagi setiap individu muslim).",
-                    "b. Fardhu Kifayah (wajib kolektif).",
-                    "c. Sunnah Muakkadah (sunnah yang sangat ditekankan).",
-                    "d. Sunnah biasa."
+                    "Fardhu 'Ain (wajib bagi setiap individu muslim).", // Prefix removed
+                    "Fardhu Kifayah (wajib kolektif).", // Prefix removed
+                    "Sunnah Muakkadah (sunnah yang sangat ditekankan).", // Prefix removed
+                    "Sunnah biasa." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Di manakah tempat yang paling utama (sesuai sunnah Nabi ﷺ) untuk melaksanakan Shalat Idul Fithri, kecuali jika ada udzur seperti hujan?",
-                jawaban: "c. Di tanah lapang.",
+                jawaban: "Di tanah lapang.", // Prefix removed
                 pilihan: [
-                    "a. Di masjid jami' terbesar di kota.",
-                    "b. Di mushalla dekat rumah.",
-                    "c. Di tanah lapang.",
-                    "d. Di aula serbaguna yang luas."
+                    "Di masjid jami' terbesar di kota.", // Prefix removed
+                    "Di mushalla dekat rumah.", // Prefix removed
+                    "Di tanah lapang.", // Prefix removed
+                    "Di aula serbaguna yang luas." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Berapa jumlah takbir tambahan (di luar takbiratul ihram dan takbir intiqal) yang dilakukan pada rakaat pertama Shalat Idul Fithri menurut pendapat mayoritas ulama yang dikutip?",
-                jawaban: "c. Tujuh kali takbir.",
+                jawaban: "Tujuh kali takbir.", // Prefix removed
                 pilihan: [
-                    "a. Lima kali takbir.",
-                    "b. Enam kali takbir.",
-                    "c. Tujuh kali takbir.",
-                    "d. Delapan kali takbir."
+                    "Lima kali takbir.", // Prefix removed
+                    "Enam kali takbir.", // Prefix removed
+                    "Tujuh kali takbir.", // Prefix removed
+                    "Delapan kali takbir." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa yang disunnahkan untuk dilakukan saat menempuh perjalanan pergi dan pulang dari tempat Shalat Id?",
-                jawaban: "b. Melewati jalan yang berbeda antara pergi dan pulang.",
+                jawaban: "Melewati jalan yang berbeda antara pergi dan pulang.", // Prefix removed
                 pilihan: [
-                    "a. Menggunakan kendaraan yang sama persis.",
-                    "b. Melewati jalan yang berbeda antara pergi dan pulang.",
-                    "c. Berjalan kaki saat pergi dan naik kendaraan saat pulang.",
-                    "d. Membaca Al-Qur'an dengan suara keras sepanjang jalan."
+                    "Menggunakan kendaraan yang sama persis.", // Prefix removed
+                    "Melewati jalan yang berbeda antara pergi dan pulang.", // Prefix removed
+                    "Berjalan kaki saat pergi dan naik kendaraan saat pulang.", // Prefix removed
+                    "Membaca Al-Qur'an dengan suara keras sepanjang jalan." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa status adzan dan iqamah dalam pelaksanaan Shalat Idul Fithri?",
-                jawaban: "d. Tidak disyariatkan (tidak ada adzan dan iqamah).",
+                jawaban: "Tidak disyariatkan (tidak ada adzan dan iqamah).", // Prefix removed
                 pilihan: [
-                    "a. Wajib dikumandangkan seperti shalat fardhu.",
-                    "b. Sunnah dikumandangkan sebelum shalat dimulai.",
-                    "c. Makruh jika dikumandangkan.",
-                    "d. Tidak disyariatkan (tidak ada adzan dan iqamah)."
+                    "Wajib dikumandangkan seperti shalat fardhu.", // Prefix removed
+                    "Sunnah dikumandangkan sebelum shalat dimulai.", // Prefix removed
+                    "Makruh jika dikumandangkan.", // Prefix removed
+                    "Tidak disyariatkan (tidak ada adzan dan iqamah)." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Menurut pendapat yang dikuatkan dalam modul berdasarkan atsar Ibnu Mas'ud, bacaan apa yang dianjurkan di sela-sela takbir tambahan (takbir zawaid) pada Shalat Id?",
-                jawaban: "a. Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ.",
+                jawaban: "Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ.", // Prefix removed
                 pilihan: [
-                    "a. Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ.",
-                    "b. Surat Al-Fatihah secara lirih.",
-                    "c. Doa iftitah diulang-ulang.",
-                    "d. Tidak ada bacaan apapun, cukup diam sejenak."
+                    "Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ.", // Prefix removed
+                    "Surat Al-Fatihah secara lirih.", // Prefix removed
+                    "Doa iftitah diulang-ulang.", // Prefix removed
+                    "Tidak ada bacaan apapun, cukup diam sejenak." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Bagaimana urutan pelaksanaan Shalat Idul Fithri dan Khotbahnya menurut sunnah?",
-                jawaban: "a. Shalat dua rakaat, kemudian dilanjutkan dengan khotbah.",
+                jawaban: "Shalat dua rakaat, kemudian dilanjutkan dengan khotbah.", // Prefix removed
                 pilihan: [
-                    "a. Shalat dua rakaat, kemudian dilanjutkan dengan khotbah.",
-                    "b. Khotbah terlebih dahulu, baru kemudian shalat dua rakaat.",
-                    "c. Shalat satu rakaat, khotbah, lalu shalat satu rakaat lagi.",
-                    "d. Khotbah di antara dua rakaat shalat."
+                    "Shalat dua rakaat, kemudian dilanjutkan dengan khotbah.", // Prefix removed
+                    "Khotbah terlebih dahulu, baru kemudian shalat dua rakaat.", // Prefix removed
+                    "Shalat satu rakaat, khotbah, lalu shalat satu rakaat lagi.", // Prefix removed
+                    "Khotbah di antara dua rakaat shalat." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa hukum mengangkat tangan pada setiap takbir tambahan (takbir zawaid) dalam Shalat Id menurut pendapat yang dipilih berdasarkan keumuman dalil?",
-                jawaban: "d. Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir.",
+                jawaban: "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir.", // Prefix removed
                 pilihan: [
-                    "a. Wajib dilakukan.",
-                    "b. Bid'ah (tidak boleh dilakukan).",
-                    "c. Makruh (sebaiknya ditinggalkan).",
-                    "d. Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir."
+                    "Wajib dilakukan.", // Prefix removed
+                    "Bid'ah (tidak boleh dilakukan).", // Prefix removed
+                    "Makruh (sebaiknya ditinggalkan).", // Prefix removed
+                    "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Jika Hari Raya Idul Fithri jatuh bertepatan dengan hari Jum'at, bagaimana hukum Shalat Jum'at bagi orang yang sudah melaksanakan Shalat Id?",
-                jawaban: "a. Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.",
+                jawaban: "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.", // Prefix removed
                 pilihan: [
-                    "a. Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.",
-                    "b. Tetap wajib melaksanakan Shalat Jum'at.",
-                    "c. Wajib mengganti Shalat Jum'at dengan Shalat Dzuhur.",
-                    "d. Shalat Id sudah menggantikan Shalat Jum'at dan Shalat Dzuhur sekaligus."
+                    "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya.", // Prefix removed
+                    "Tetap wajib melaksanakan Shalat Jum'at.", // Prefix removed
+                    "Wajib mengganti Shalat Jum'at dengan Shalat Dzuhur.", // Prefix removed
+                    "Shalat Id sudah menggantikan Shalat Jum'at dan Shalat Dzuhur sekaligus." // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
             },
             {
                 deskripsi: "Apa ucapan selamat (tahniah) yang disunnahkan di hari raya, sebagaimana dicontohkan oleh para sahabat?",
-                jawaban: "d. \"Taqabbalallahu minna wa minkum.\"",
+                jawaban: "\"Taqabbalallahu minna wa minkum.\"", // Prefix removed
                 pilihan: [
-                    "a. \"Minal 'aidin wal faizin.\"",
-                    "b. \"Selamat Hari Raya, mohon maaf lahir dan batin.\"",
-                    "c. \"Eid Mubarak, barakallahu fiikum.\"",
-                    "d. \"Taqabbalallahu minna wa minkum.\""
+                    "\"Minal 'aidin wal faizin.\"", // Prefix removed
+                    "\"Selamat Hari Raya, mohon maaf lahir dan batin.\"", // Prefix removed
+                    "\"Eid Mubarak, barakallahu fiikum.\"", // Prefix removed
+                    "\"Taqabbalallahu minna wa minkum.\"" // Prefix removed
                 ],
                 judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
                 kategori: "ramadhan"
@@ -389,7 +397,7 @@
         const totalSoal = 15;
         let isStartSoundPlayed = false;
         let timerInterval = null;
-        let timeLeft = 240; // 4 menit
+        let timeLeft = 240;
         let isGameOverSoundPlayed = false;
 
         // Fungsi suara
@@ -426,7 +434,6 @@
             }
         }
 
-
         // Fungsi mulai permainan
         function mulaiPermainan() {
             document.getElementById("startScreen").style.display = "none";
@@ -434,33 +441,25 @@
             document.getElementById("pilihanGanda").style.display = "flex";
             document.getElementById("skor").style.display = "block";
 
-            const gameArea = document.getElementById("gameArea");
-            // gameArea.classList.add("popup-animation"); // Animation might be jarring when restarting
             playSound('start');
 
             if (!timerInterval && timeLeft > 0) {
                 updateTimer();
                 timerInterval = setInterval(updateTimer, 1000);
             } else if (!timerInterval && timeLeft <= 0) {
-                akhirPermainan();
-                return;
+                akhirPermainan(); return;
             }
 
-            // setTimeout(() => { gameArea.classList.remove("popup-animation"); }, 500); // Remove if animation removed
-
             jawabanBenar = false;
-
             let soalTersedia = dataTebakan.filter(soal => !soalSudahDitampilkan.has(soal.deskripsi));
 
             if (soalTersedia.length === 0 || nomorSoal >= totalSoal) {
-                if(timerInterval) clearInterval(timerInterval); // Ensure timer stops if finished early
+                if(timerInterval) clearInterval(timerInterval);
                 timerInterval = null;
-                akhirPermainan();
-                return;
+                akhirPermainan(); return;
             }
 
             nomorSoal++;
-
             soalSaatIni = soalTersedia[Math.floor(Math.random() * soalTersedia.length)];
             soalSudahDitampilkan.add(soalSaatIni.deskripsi);
 
@@ -473,7 +472,7 @@
 
             shuffledPilihan.forEach(pilihanText => {
                 const button = document.createElement("button");
-                button.textContent = pilihanText; // Assumes data has a., b., etc.
+                button.textContent = pilihanText; // Text now has no prefixes
                 button.onclick = function() {
                     if (!jawabanBenar && timeLeft > 0 && timerInterval) {
                         cekJawaban(pilihanText, button);
@@ -484,7 +483,6 @@
 
             document.getElementById("hasil").textContent = "";
             resetPilihan();
-
             document.getElementById("skorBenar").textContent = skorBenar;
             document.getElementById("skorSalah").textContent = skorSalah;
         }
@@ -494,7 +492,11 @@
             const pilihanButtons = document.querySelectorAll("#pilihanGanda button");
             pilihanButtons.forEach(btn => btn.onclick = null);
 
-            if (jawabanYangDipilih === soalSaatIni.jawaban) {
+            // Normalize quotes in case of copy-paste issues
+            const normalizedJawabanDipilih = jawabanYangDipilih.replace(/["“”]/g, '"');
+            const normalizedJawabanBenar = soalSaatIni.jawaban.replace(/["“”]/g, '"');
+
+            if (normalizedJawabanDipilih === normalizedJawabanBenar) {
                 document.getElementById("hasil").textContent = "Benar!";
                 playCorrectAnimation();
                 playSound('success');
@@ -522,7 +524,8 @@
                 document.getElementById("skorSalah").textContent = skorSalah;
 
                  pilihanButtons.forEach(btn => {
-                    if (btn.textContent === soalSaatIni.jawaban) {
+                    const normalizedBtnText = btn.textContent.replace(/["“”]/g, '"');
+                    if (normalizedBtnText === normalizedJawabanBenar) {
                         btn.style.backgroundColor = "#90EE90";
                     }
                  });
@@ -553,20 +556,16 @@
         // Fungsi animasi Lottie
         function playCorrectAnimation() {
              const animationContainer = document.getElementById('correctAnimation');
-            animationContainer.style.display = 'block';
-            animationContainer.innerHTML = '';
-            try {
-                lottie.loadAnimation({ container: animationContainer, renderer: 'svg', loop: false, autoplay: true, path: 'correctan.json' });
-            } catch (error) { console.error("Lottie Error (Correct):", error); animationContainer.style.display = 'none'; }
+            animationContainer.style.display = 'block'; animationContainer.innerHTML = '';
+            try { lottie.loadAnimation({ container: animationContainer, renderer: 'svg', loop: false, autoplay: true, path: 'correctan.json' }); }
+            catch (error) { console.error("Lottie Error (Correct):", error); animationContainer.style.display = 'none'; }
             setTimeout(() => { animationContainer.style.display = 'none'; }, 2000);
          }
         function playWrongAnimation() {
             const animationContainer = document.getElementById('wrongAnimation');
-            animationContainer.style.display = 'block';
-            animationContainer.innerHTML = '';
-             try {
-                lottie.loadAnimation({ container: animationContainer, renderer: 'svg', loop: false, autoplay: true, path: 'wrong.json' });
-             } catch (error) { console.error("Lottie Error (Wrong):", error); animationContainer.style.display = 'none'; }
+            animationContainer.style.display = 'block'; animationContainer.innerHTML = '';
+             try { lottie.loadAnimation({ container: animationContainer, renderer: 'svg', loop: false, autoplay: true, path: 'wrong.json' }); }
+             catch (error) { console.error("Lottie Error (Wrong):", error); animationContainer.style.display = 'none'; }
             setTimeout(() => { animationContainer.style.display = 'none'; }, 2000);
         }
 
@@ -578,13 +577,9 @@
             const skorAkhir = totalSoal > 0 ? (skorBenar / totalSoal) * 100 : 0;
             let warnaSkor, komentar, gameOverSoundFile;
 
-            if (skorAkhir < 50) {
-                gameOverSoundFile = 'ast.mp3'; komentar = "Belajar lagi ya....😊😁🤭"; warnaSkor = "#FF0000";
-            } else if (skorAkhir <= 84) {
-                gameOverSoundFile = 'alh.mp3'; komentar = "Mantap....🫶🏻"; warnaSkor = "#FFA500";
-            } else {
-                gameOverSoundFile = 'masy.mp3'; komentar = "Kamu Luar Biasa...👍🏻👍🏻👍🏻"; warnaSkor = "#008000";
-            }
+            if (skorAkhir < 50) { gameOverSoundFile = 'ast.mp3'; komentar = "Belajar lagi ya....😊😁🤭"; warnaSkor = "#FF0000"; }
+            else if (skorAkhir <= 84) { gameOverSoundFile = 'alh.mp3'; komentar = "Mantap....🫶🏻"; warnaSkor = "#FFA500"; }
+            else { gameOverSoundFile = 'masy.mp3'; komentar = "Kamu Luar Biasa...👍🏻👍🏻👍🏻"; warnaSkor = "#008000"; }
 
             document.getElementById("judulGame").textContent = "Permainan Selesai!";
              document.getElementById("petunjuk").innerHTML = `
@@ -600,45 +595,25 @@
             isGameOverSoundPlayed = true;
 
             const learnMoreButton = document.createElement("button");
-            learnMoreButton.textContent = "Belajar Lagi";
-            learnMoreButton.id = "learnMoreButton";
-            learnMoreButton.onclick = () => {
-                 window.location.href = 'https://drive.google.com/file/d/1hWKJqHEpmtaPVIaIVBsbU_2iFRCKIZS6/view?usp=sharing';
-             };
-            // Apply styles similar to #startButton for consistency
-            learnMoreButton.style.fontSize = "24px";
-            learnMoreButton.style.padding = "12px 20px";
-            learnMoreButton.style.margin = "8px";
-            learnMoreButton.style.border = "none";
-            learnMoreButton.style.borderRadius = "8px";
-            learnMoreButton.style.backgroundColor = "#F5E8C7";
-            learnMoreButton.style.color = "#2E4A47";
-            learnMoreButton.style.cursor = "pointer";
-            learnMoreButton.style.transition = "background-color 0.3s ease";
+            learnMoreButton.textContent = "Belajar Lagi"; learnMoreButton.id = "learnMoreButton";
+            learnMoreButton.onclick = () => { window.location.href = 'https://drive.google.com/file/d/1hWKJqHEpmtaPVIaIVBsbU_2iFRCKIZS6/view?usp=sharing'; };
+            // Apply styles dynamically
+            Object.assign(learnMoreButton.style, { fontSize: "24px", padding: "12px 20px", margin: "8px", border: "none", borderRadius: "8px", backgroundColor: "#F5E8C7", color: "#2E4A47", cursor: "pointer", transition: "background-color 0.3s ease" });
             learnMoreButton.onmouseover = () => learnMoreButton.style.backgroundColor = "#E8DAB2";
             learnMoreButton.onmouseout = () => learnMoreButton.style.backgroundColor = "#F5E8C7";
-
             document.getElementById("gameArea").appendChild(learnMoreButton);
         }
 
         // Event listener untuk tombol start awal
         document.getElementById("startButton").addEventListener("click", () => {
-             skorBenar = 0;
-             skorSalah = 0;
-             nomorSoal = 0;
-             soalSudahDitampilkan.clear();
-             isGameOverSoundPlayed = false;
-             isStartSoundPlayed = false;
-             timeLeft = 240;
-             if(timerInterval) clearInterval(timerInterval);
-             timerInterval = null;
-             document.getElementById("skorBenar").textContent = "0";
-             document.getElementById("skorSalah").textContent = "0";
+             skorBenar = 0; skorSalah = 0; nomorSoal = 0; soalSudahDitampilkan.clear(); isGameOverSoundPlayed = false; isStartSoundPlayed = false; timeLeft = 240;
+             if(timerInterval) clearInterval(timerInterval); timerInterval = null;
+             document.getElementById("skorBenar").textContent = "0"; document.getElementById("skorSalah").textContent = "0";
              const oldLearnButton = document.getElementById("learnMoreButton");
              if (oldLearnButton) oldLearnButton.remove();
-             document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)"; // Reset title
-             document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!"; // Reset text, use innerHTML in case of leftover HTML from score
-             document.getElementById("petunjuk").style.color = "#333"; // Ensure default color
+             document.getElementById("judulGame").textContent = "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)";
+             document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!";
+             document.getElementById("petunjuk").style.color = "#333";
              mulaiPermainan();
         });
 
