@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)</title>
-    <!-- Added Noto Sans Gunjala Gondi font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gunjala+Gondi&family=Roboto:wght@400;700&family=Signika:wght@400;700&family=Kanit&family=Acme&display=swap" rel="stylesheet">
@@ -14,11 +13,34 @@
     <style>
         html { height: 100%; margin: 0; padding: 0; }
          body {
-            font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; height: 100%; background-color: #1A3C34; margin: 0; padding: 0; width: 100%; overflow-x: hidden; position: relative;
+            font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; height: 100%;
+            /* Default solid background */
+            background-color: #1A3C34;
+            margin: 0; padding: 0; width: 100%; overflow-x: hidden; position: relative;
+            /* Smooth background transition (optional) */
+            transition: background 0.3s ease-in-out;
         }
+        /* Style for body when intro background should be shown */
+        body.intro-bg {
+            background-image: url('background_hijau.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keep background fixed */
+        }
+
         #gameArea {
-            background-color: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; max-width: 100%; width: 95%; box-sizing: border-box; position: relative;
+            background-color: #fff; /* Default white background */
+            border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; max-width: 100%; width: 95%; box-sizing: border-box; position: relative;
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
         }
+         /* Style for gameArea during intro */
+         body.intro-bg #gameArea {
+            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+            box-shadow: none; /* Remove shadow during intro */
+         }
+
+
         #timerContainer { display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
         #timerIcon { width: 40px; height: 40px; margin-right: 10px; }
         #timer { font-family: 'Acme', sans-serif; font-size: 40px; color: #2E4A47; }
@@ -77,7 +99,18 @@
         @keyframes popup { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         .popup-animation { animation: popup 0.5s ease-in-out forwards; }
 
-        #copyright { position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px; color: #F5E8C7; z-index: 1100; }
+        #copyright {
+            position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px;
+            color: #F5E8C7; /* Default color */
+            z-index: 1100;
+            transition: color 0.3s ease-in-out; /* Smooth transition */
+        }
+        /* Copyright color during intro */
+        body.intro-bg #copyright {
+            color: #FFFFFF; /* White text */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+        }
+
 
         #correctAnimation, #wrongAnimation { position: absolute; top: 10px; width: 64px; height: 64px; display: none; z-index: 1050; }
         #correctAnimation { right: 10px; }
@@ -145,6 +178,7 @@
 
         // Function to start the game
         function mulaiPermainan() {
+            document.body.classList.remove('intro-bg'); // Remove intro background class
             document.getElementById("startScreen").style.display = "none";
             document.getElementById("timerContainer").style.display = "flex";
             document.getElementById("pilihanGanda").style.display = "flex";
@@ -202,6 +236,7 @@
         function akhirPermainan() {
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             if (isGameOverSoundPlayed) return;
+             document.body.classList.remove('intro-bg'); // Ensure solid bg on end screen
 
             const skorAkhir = totalSoal > 0 ? (skorBenar / totalSoal) * 100 : 0;
             let warnaSkor, komentar, gameOverSoundFile;
@@ -231,6 +266,11 @@
             document.getElementById("gameArea").appendChild(learnMoreButton);
         }
 
+        // Add the intro background class when the DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('intro-bg');
+        });
+
         // Initial Start Button Event Listener
         document.getElementById("startButton").addEventListener("click", () => {
              skorBenar = 0; skorSalah = 0; nomorSoal = 0; soalSudahDitampilkan.clear(); isGameOverSoundPlayed = false; isStartSoundPlayed = false; timeLeft = 240;
@@ -241,6 +281,8 @@
              document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!";
              document.getElementById("petunjuk").style.color = "#333";
              document.getElementById("skor").style.display = "none";
+             // Add intro class briefly before removing it in mulaiPermainan, ensures it shows if restarting
+             document.body.classList.add('intro-bg');
              mulaiPermainan();
         });
 
