@@ -14,33 +14,15 @@
         html { height: 100%; margin: 0; padding: 0; }
          body {
             font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; height: 100%;
-            /* Default solid background */
+            /* Reverted to solid background only */
             background-color: #1A3C34;
             margin: 0; padding: 0; width: 100%; overflow-x: hidden; position: relative;
-            /* Smooth background transition (optional) */
-            transition: background 0.3s ease-in-out;
         }
-        /* Style for body when intro background should be shown */
-        body.intro-bg {
-            background-image: url('background_hijau.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Keep background fixed */
-        }
-
         #gameArea {
-            background-color: #fff; /* Default white background */
+            /* Reverted to solid background and shadow */
+            background-color: #fff;
             border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center; max-width: 100%; width: 95%; box-sizing: border-box; position: relative;
-            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
         }
-         /* Style for gameArea during intro */
-         body.intro-bg #gameArea {
-            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
-            box-shadow: none; /* Remove shadow during intro */
-         }
-
-
         #timerContainer { display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
         #timerIcon { width: 40px; height: 40px; margin-right: 10px; }
         #timer { font-family: 'Acme', sans-serif; font-size: 40px; color: #2E4A47; }
@@ -101,16 +83,10 @@
 
         #copyright {
             position: absolute; top: 10px; right: 10px; font-family: 'Kanit', sans-serif; font-size: 14px;
-            color: #F5E8C7; /* Default color */
+            /* Reverted to default color */
+            color: #F5E8C7;
             z-index: 1100;
-            transition: color 0.3s ease-in-out; /* Smooth transition */
         }
-        /* Copyright color during intro */
-        body.intro-bg #copyright {
-            color: #FFFFFF; /* White text */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Shadow for readability */
-        }
-
 
         #correctAnimation, #wrongAnimation { position: absolute; top: 10px; width: 64px; height: 64px; display: none; z-index: 1050; }
         #correctAnimation { right: 10px; }
@@ -145,40 +121,203 @@
     </div>
     <div id="copyright">© Mas Har</div>
     <script>
-        // --- Question Data ---
+        // --- START: Updated & Cleaned Question Data ---
         const dataTebakan = [
-             { deskripsi: "Kapan waktu yang paling utama (afdhal) untuk menunaikan Zakat Fithri?", jawaban: "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id", pilihan: ["Sejak awal bulan Ramadhan hingga akhir", "Satu atau dua hari sebelum hari raya Idul Fithri", "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id", "Setelah selesai Shalat Idul Fithri hingga sebelum matahari terbenam"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Berdasarkan hadits Ibnu Umar, Zakat Fithri diwajibkan atas setiap muslim Siapakah yang tidak termasuk dalam kewajiban ini secara langsung (meskipun mungkin ditanggung oleh walinya)?", jawaban: "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama)", pilihan: ["Anak kecil yang belum baligh", "Seorang budak muslim", "Janin yang masih dalam kandungan (meskipun dianjurkan oleh sebagian ulama)", "Orang dewasa yang mampu secara finansial"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa ukuran standar Zakat Fithri yang harus dikeluarkan untuk setiap jiwa menurut hadits?", jawaban: "Satu sha' dari makanan pokok setempat", pilihan: ["2.5 kilogram beras atau gandum", "Satu sha' dari makanan pokok setempat", "Sejumlah uang yang setara dengan harga 3 kg kurma", "Empat genggam tangan orang dewasa (mud) gandum saja"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Bagaimana hukum mengeluarkan Zakat Fithri setelah selesai melaksanakan Shalat Idul Fithri?", jawaban: "Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur", pilihan: ["Masih dianggap Zakat Fithri yang sah jika ada udzur", "Dianggap sah namun makruh", "Boleh dilakukan jika terlupa", "Tidak lagi dianggap sebagai Zakat Fithri, melainkan sedekah biasa dan berdosa jika menunda tanpa udzur"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Sesuai sunnah, apa yang sebaiknya dilakukan sebelum berangkat untuk Shalat Idul Fithri?", jawaban: "Memakan beberapa butir kurma dalam jumlah ganjil", pilihan: ["Berpuasa hingga selesai shalat", "Memakan beberapa butir kurma dalam jumlah ganjil", "Tidak makan apapun hingga pulang dari shalat", "Memperbanyak tidur agar fit saat shalat"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa hukum asal pelaksanaan Shalat Idul Fithri menurut pendapat yang lebih kuat berdasarkan dalil (seperti hadits Ummu Athiyyah)?", jawaban: "Fardhu 'Ain (wajib bagi setiap individu muslim)", pilihan: ["Fardhu 'Ain (wajib bagi setiap individu muslim)", "Fardhu Kifayah (wajib kolektif)", "Sunnah Muakkadah (sunnah yang sangat ditekankan)", "Sunnah biasa"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Di manakah tempat yang paling utama (sesuai sunnah Nabi ﷺ) untuk melaksanakan Shalat Idul Fithri, kecuali jika ada udzur seperti hujan?", jawaban: "Di tanah lapang", pilihan: ["Di masjid jami' terbesar di kota", "Di mushalla dekat rumah", "Di tanah lapang", "Di aula serbaguna yang luas"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Berapa jumlah takbir tambahan (di luar takbiratul ihram dan takbir intiqal) yang dilakukan pada rakaat pertama Shalat Idul Fithri menurut pendapat mayoritas ulama?", jawaban: "Tujuh kali takbir", pilihan: ["Lima kali takbir", "Enam kali takbir", "Tujuh kali takbir", "Delapan kali takbir"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa yang disunnahkan untuk dilakukan saat menempuh perjalanan pergi dan pulang dari tempat Shalat Id?", jawaban: "Melewati jalan yang berbeda antara pergi dan pulang", pilihan: ["Menggunakan kendaraan yang sama persis", "Melewati jalan yang berbeda antara pergi dan pulang", "Berjalan kaki saat pergi dan naik kendaraan saat pulang", "Membaca Al-Qur'an dengan suara keras sepanjang jalan"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa status adzan dan iqamah dalam pelaksanaan Shalat Idul Fithri?", jawaban: "Tidak disyariatkan (tidak ada adzan dan iqamah)", pilihan: ["Wajib dikumandangkan seperti shalat fardhu", "Sunnah dikumandangkan sebelum shalat dimulai", "Makruh jika dikumandangkan", "Tidak disyariatkan (tidak ada adzan dan iqamah)"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Bacaan apa yang dianjurkan di sela-sela takbir tambahan (takbir zawaid) pada Shalat Id?", jawaban: "Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ", pilihan: ["Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ", "Surat Al-Fatihah secara lirih", "Doa iftitah diulang-ulang", "Tidak ada bacaan apapun, cukup diam sejenak"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Bagaimana urutan pelaksanaan Shalat Idul Fithri dan Khotbahnya menurut sunnah?", jawaban: "Shalat dua rakaat, kemudian dilanjutkan dengan khotbah", pilihan: ["Shalat dua rakaat, kemudian dilanjutkan dengan khotbah", "Khotbah terlebih dahulu, baru kemudian shalat dua rakaat", "Shalat satu rakaat, khotbah, lalu shalat satu rakaat lagi", "Khotbah di antara dua rakaat shalat"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa hukum mengangkat tangan pada setiap takbir tambahan (takbir zawaid) dalam Shalat Id?", jawaban: "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir", pilihan: ["Wajib dilakukan", "Bid'ah (tidak boleh dilakukan)", "Makruh (sebaiknya ditinggalkan)", "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Jika Hari Raya Idul Fithri jatuh bertepatan dengan hari Jum'at, bagaimana hukum Shalat Jum'at bagi orang yang sudah melaksanakan Shalat Id?", jawaban: "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya", pilihan: ["Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya", "Tetap wajib melaksanakan Shalat Jum'at", "Wajib mengganti Shalat Jum'at dengan Shalat Dzuhur", "Shalat Id sudah menggantikan Shalat Jum'at dan Shalat Dzuhur sekaligus"], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" },
-             { deskripsi: "Apa ucapan selamat (tahniah) yang disunnahkan di hari raya?", jawaban: "\"Taqabbalallahu minna wa minkum\"", pilihan: ["\"Minal 'aidin wal faizin\"", "\"Selamat Hari Raya, mohon maaf lahir dan batin\"", "\"Eid Mubarak, barakallahu fiikum\"", "\"Taqabbalallahu minna wa minkum\""], judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)", kategori: "ramadhan" }
+            {
+                deskripsi: "Kapan waktu yang paling utama (afdhal) untuk menunaikan Zakat Fithri?", // Phrase removed
+                jawaban: "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id", // Prefix & Period removed
+                pilihan: [
+                    "Sejak awal bulan Ramadhan hingga akhir", // Prefix & Period removed
+                    "Satu atau dua hari sebelum hari raya Idul Fithri", // Prefix & Period removed
+                    "Sejak malam takbiran (malam Idul Fithri) hingga sebelum pelaksanaan Shalat Id", // Prefix & Period removed
+                    "Setelah selesai Shalat Idul Fithri hingga sebelum matahari terbenam" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Berdasarkan hadits Ibnu Umar, Zakat Fithri diwajibkan atas setiap muslim Siapakah yang tidak termasuk dalam kewajiban ini secara langsung?", // Phrase removed
+                jawaban: "Janin yang masih dalam kandungan", // Prefix & Period removed
+                pilihan: [
+                    "Anak kecil yang belum baligh", // Prefix & Period removed
+                    "Seorang budak muslim", // Prefix & Period removed
+                    "Janin yang masih dalam kandungan", // Prefix & Period removed
+                    "Orang dewasa yang mampu secara finansial" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Apa ukuran standar Zakat Fithri yang harus dikeluarkan untuk setiap jiwa menurut hadits?", // Phrase removed
+                jawaban: "Satu sha' dari makanan pokok setempat", // Prefix & Period removed
+                pilihan: [
+                    "2.5 kilogram beras atau gandum", // Prefix & Period removed
+                    "Satu sha' dari makanan pokok setempat", // Prefix & Period removed
+                    "Sejumlah uang yang setara dengan harga 3 kg kurma", // Prefix & Period removed
+                    "Empat genggam tangan orang dewasa (mud) gandum saja" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Seseorang terlambat membayar Zakat Fithri hingga setelah Shalat Idul Fithri dilaksanakan Apakah ia masih dituntut untuk membayarnya?",
+                jawaban: "Ya, wajib membayarnya sebagai qadha meskipun statusnya menjadi sedekah biasa", // Prefix & Period removed
+                pilihan: [
+                    "Ya, wajib membayarnya sebagai qadha meskipun statusnya menjadi sedekah biasa", // Prefix & Period removed
+                    "Tidak perlu, karena waktunya sudah habis dan kewajibannya gugur", // Prefix & Period removed
+                    "Dianjurkan saja, tidak wajib, sebagai pengganti", // Prefix & Period removed
+                    "Boleh diganti dengan puasa sunnah" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Sesuai sunnah, apa yang sebaiknya dilakukan sebelum berangkat untuk Shalat Idul Fithri?", // Phrase removed
+                jawaban: "Memakan beberapa butir kurma dalam jumlah ganjil", // Prefix & Period removed
+                pilihan: [
+                    "Berpuasa hingga selesai shalat", // Prefix & Period removed
+                    "Memakan beberapa butir kurma dalam jumlah ganjil", // Prefix & Period removed
+                    "Tidak makan apapun hingga pulang dari shalat", // Prefix & Period removed
+                    "Memperbanyak tidur agar fit saat shalat" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Salah satu pendapat kuat menyatakan hukum Shalat Idul Fithri adalah Fardhu 'Ain Pendapat ini didasarkan pada riwayat yang menunjukkan perintah Rasulullah ﷺ kepada siapa untuk keluar menuju tempat shalat Id?",
+                jawaban: "Semua kalangan termasuk wanita (haid, gadis pingitan) untuk hadir (meskipun wanita haid memisahkan diri dari tempat shalat)", // Prefix & Period removed
+                pilihan: [
+                    "Hanya laki-laki dewasa yang mampu", // Prefix & Period removed
+                    "Seluruh penduduk Madinah tanpa terkecuali", // Prefix & Period removed
+                    "Para sahabat senior dan ahli Badar", // Prefix & Period removed
+                    "Semua kalangan termasuk wanita (haid, gadis pingitan) untuk hadir (meskipun wanita haid memisahkan diri dari tempat shalat)" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Di manakah tempat yang paling utama (sesuai sunnah Nabi ﷺ) untuk melaksanakan Shalat Idul Fithri, kecuali jika ada udzur seperti hujan?",
+                jawaban: "Di tanah lapang", // Prefix & Period removed
+                pilihan: [
+                    "Di masjid jami' terbesar di kota", // Prefix & Period removed
+                    "Di mushalla dekat rumah", // Prefix & Period removed
+                    "Di tanah lapang", // Prefix & Period removed
+                    "Di aula serbaguna yang luas" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Berapa jumlah total takbir yang dilakukan pada rakaat pertama Shalat Idul Fithri, termasuk takbiratul ihram, menurut pendapat mayoritas ulama?", // Phrase removed
+                jawaban: "Delapan kali", // Prefix & Period removed
+                pilihan: [
+                    "Enam kali", // Prefix & Period removed
+                    "Tujuh kali", // Prefix & Period removed
+                    "Delapan kali", // Prefix & Period removed
+                    "Sembilan kali" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Apa yang disunnahkan untuk dilakukan saat menempuh perjalanan pergi dan pulang dari tempat Shalat Id?",
+                jawaban: "Melewati jalan yang berbeda antara pergi dan pulang", // Prefix & Period removed
+                pilihan: [
+                    "Menggunakan kendaraan yang sama persis", // Prefix & Period removed
+                    "Melewati jalan yang berbeda antara pergi dan pulang", // Prefix & Period removed
+                    "Berjalan kaki saat pergi dan naik kendaraan saat pulang", // Prefix & Period removed
+                    "Membaca Al-Qur'an dengan suara keras sepanjang jalan" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Apa status adzan dan iqamah dalam pelaksanaan Shalat Idul Fithri?",
+                jawaban: "Tidak disyariatkan (tidak ada adzan dan iqamah)", // Prefix & Period removed
+                pilihan: [
+                    "Wajib dikumandangkan seperti shalat fardhu", // Prefix & Period removed
+                    "Sunnah dikumandangkan sebelum shalat dimulai", // Prefix & Period removed
+                    "Makruh jika dikumandangkan", // Prefix & Period removed
+                    "Tidak disyariatkan (tidak ada adzan dan iqamah)" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Bacaan apa yang dianjurkan di sela-sela takbir tambahan (takbir zawaid) pada Shalat Id?", // Phrase removed
+                jawaban: "Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ", // Prefix & Period removed
+                pilihan: [
+                    "Pujian kepada Allah (hamdalah, tasbih) dan shalawat Nabi ﷺ", // Prefix & Period removed
+                    "Surat Al-Fatihah secara lirih", // Prefix & Period removed
+                    "Doa iftitah", // Prefix & Period removed
+                    "Tidak ada bacaan apapun, cukup diam sejenak" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Bagaimana urutan pelaksanaan Shalat Idul Fithri dan Khotbahnya menurut sunnah?",
+                jawaban: "Shalat dua rakaat, kemudian dilanjutkan dengan khotbah", // Prefix & Period removed
+                pilihan: [
+                    "Shalat dua rakaat, kemudian dilanjutkan dengan khotbah", // Prefix & Period removed
+                    "Khotbah terlebih dahulu, baru kemudian shalat dua rakaat", // Prefix & Period removed
+                    "Shalat satu rakaat, khotbah, lalu shalat satu rakaat lagi", // Prefix & Period removed
+                    "Khotbah di antara dua rakaat shalat" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Apa hukum mengangkat tangan pada setiap takbir tambahan (takbir zawaid) dalam Shalat Id?", // Phrase removed
+                jawaban: "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir", // Prefix & Period removed
+                pilihan: [
+                    "Wajib dilakukan", // Prefix & Period removed
+                    "Bid'ah (tidak boleh dilakukan)", // Prefix & Period removed
+                    "Makruh (sebaiknya ditinggalkan)", // Prefix & Period removed
+                    "Disunnahkan berdasarkan keumuman hadits mengangkat tangan saat takbir" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Jika Hari Raya Idul Fithri jatuh bertepatan dengan hari Jum'at, bagaimana hukum Shalat Jum'at bagi orang yang sudah melaksanakan Shalat Id?",
+                jawaban: "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya", // Prefix & Period removed
+                pilihan: [
+                    "Gugur kewajiban Shalat Jum'at baginya (tidak wajib), namun imam tetap menyelenggarakannya", // Prefix & Period removed
+                    "Tetap wajib melaksanakan Shalat Jum'at", // Prefix & Period removed
+                    "Wajib mengganti Shalat Jum'at dengan Shalat Dzuhur", // Prefix & Period removed
+                    "Shalat Id sudah menggantikan Shalat Jum'at dan Shalat Dzuhur sekaligus" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            },
+            {
+                deskripsi: "Apa ucapan selamat (tahniah) di hari raya Idul Fithri yang pernah dicontohkan langsung oleh para sahabat?",
+                jawaban: "\"Taqabbalallahu minna wa minkum\"", // Prefix & Period removed
+                pilihan: [
+                    "\"Minal 'aidin wal faizin\"", // Prefix & Period removed
+                    "\"Selamat Hari Raya, mohon maaf lahir dan batin\"", // Prefix & Period removed
+                    "\"Eid Mubarak, barakallahu fiikum\"", // Prefix & Period removed
+                    "\"Taqabbalallahu minna wa minkum\"" // Prefix & Period removed
+                ],
+                judul: "Kuis Ramadhan 2 (Edisi Zakat dan Idul Fitri)",
+                kategori: "ramadhan"
+            }
         ];
         // --- END Question Data ---
 
         // --- Global Variables ---
         let soalSaatIni; let synth = new Tone.Synth().toDestination(); let jawabanBenar = false; let skorBenar = 0; let skorSalah = 0; let soalSudahDitampilkan = new Set(); let nomorSoal = 0; const totalSoal = 15; let isStartSoundPlayed = false; let timerInterval = null; let timeLeft = 240; let isGameOverSoundPlayed = false;
 
-        // --- Functions (playSound, updateTimer, resetPilihan, animations - unchanged) ---
+        // --- Functions ---
         function playSound(type, specificAudioFile) { let audioFile; if (type === 'success') audioFile = 'success.wav'; else if (type === 'fail') audioFile = 'gameovertwew.wav'; else if (type === 'start' && !isStartSoundPlayed) { audioFile = 'ping.wav'; isStartSoundPlayed = true; } else if (type === 'gameover' && specificAudioFile) audioFile = specificAudioFile; else if (type) audioFile = type; if (audioFile) { const audio = new Audio(audioFile); audio.play().catch(e => console.error("Error playing sound:", e)); } }
         function updateTimer() { let minutes = Math.floor(timeLeft / 60); let seconds = timeLeft % 60; document.getElementById("timer").textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; if (timeLeft <= 0) { clearInterval(timerInterval); timerInterval = null; if (nomorSoal < totalSoal) { skorSalah += (totalSoal - nomorSoal); document.getElementById("skorSalah").textContent = skorSalah; } akhirPermainan(); } else { timeLeft--; } }
         function resetPilihan() { const pilihanButtons = document.querySelectorAll("#pilihanGanda button"); pilihanButtons.forEach(button => { button.classList.remove("selected", "salah"); button.style.backgroundColor = ""; button.style.animationPlayState = 'paused'; }); }
         function playCorrectAnimation() { const ac = document.getElementById('correctAnimation'); ac.style.display = 'block'; ac.innerHTML = ''; try { lottie.loadAnimation({ container: ac, renderer: 'svg', loop: false, autoplay: true, path: 'correctan.json' }); } catch (e) { console.error("Lottie Error(C):", e); ac.style.display = 'none'; } setTimeout(() => { ac.style.display = 'none'; }, 2000); }
         function playWrongAnimation() { const aw = document.getElementById('wrongAnimation'); aw.style.display = 'block'; aw.innerHTML = ''; try { lottie.loadAnimation({ container: aw, renderer: 'svg', loop: false, autoplay: true, path: 'wrong.json' }); } catch (e) { console.error("Lottie Error(W):", e); aw.style.display = 'none'; } setTimeout(() => { aw.style.display = 'none'; }, 2000); }
-        // --- End Unchanged Functions ---
 
-        // Function to start the game
         function mulaiPermainan() {
-            document.body.classList.remove('intro-bg'); // Remove intro background class
+            // No background class manipulation needed now
             document.getElementById("startScreen").style.display = "none";
             document.getElementById("timerContainer").style.display = "flex";
             document.getElementById("pilihanGanda").style.display = "flex";
@@ -215,7 +354,6 @@
             document.getElementById("skorBenar").textContent = skorBenar; document.getElementById("skorSalah").textContent = skorSalah;
         }
 
-        // Function to check the answer
         function cekJawaban(jawabanYangDipilih, buttonElement) {
             const pilihanButtons = document.querySelectorAll("#pilihanGanda button"); pilihanButtons.forEach(btn => btn.onclick = null);
             const normDipilih = jawabanYangDipilih.replace(/["“”]/g, '"'); const normBenar = soalSaatIni.jawaban.replace(/["“”]/g, '"');
@@ -232,11 +370,10 @@
             }
         }
 
-        // Function to end the game
         function akhirPermainan() {
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             if (isGameOverSoundPlayed) return;
-             document.body.classList.remove('intro-bg'); // Ensure solid bg on end screen
+            // No background class manipulation needed
 
             const skorAkhir = totalSoal > 0 ? (skorBenar / totalSoal) * 100 : 0;
             let warnaSkor, komentar, gameOverSoundFile;
@@ -266,11 +403,6 @@
             document.getElementById("gameArea").appendChild(learnMoreButton);
         }
 
-        // Add the intro background class when the DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('intro-bg');
-        });
-
         // Initial Start Button Event Listener
         document.getElementById("startButton").addEventListener("click", () => {
              skorBenar = 0; skorSalah = 0; nomorSoal = 0; soalSudahDitampilkan.clear(); isGameOverSoundPlayed = false; isStartSoundPlayed = false; timeLeft = 240;
@@ -281,10 +413,11 @@
              document.getElementById("petunjuk").innerHTML = "Selamat datang di Kuis Ramadhan!";
              document.getElementById("petunjuk").style.color = "#333";
              document.getElementById("skor").style.display = "none";
-             // Add intro class briefly before removing it in mulaiPermainan, ensures it shows if restarting
-             document.body.classList.add('intro-bg');
+             // No background class manipulation needed
              mulaiPermainan();
         });
+
+        // No DOMContentLoaded listener needed for background anymore
 
     </script>
 </body>
